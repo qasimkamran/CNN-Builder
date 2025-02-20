@@ -3,28 +3,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Build-a-CNN</title>
+    <title>Build-a-CNN - Configure Layers</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <h1>Build-a-CNN</h1>
     <div id="cnn-config">
-        <h2>CNN Template Configuration</h2>
-        <!-- Text area for the CNN configuration in JSON format -->
-        <textarea id="config-input" rows="10" cols="50">
-[
-    {"type": "Conv2D", "params": {"filters": 32, "kernel_size": [3, 3], "activation": "relu"}},
-    {"type": "MaxPooling2D", "params": {"pool_size": [2, 2]}},
-    {"type": "Flatten", "params": {}},
-    {"type": "Dense", "params": {"units": 10, "activation": "softmax"}}
-]
-        </textarea>
-        <br>
+        <h2>Configure CNN Architecture</h2>
+        <div id="configuration-panel">
+            <!-- Panel for pre-configured layers -->
+            <div id="pre-configured">
+                <h3>Available Layers</h3>
+                <ul id="layer-options"></ul>
+            </div>
+            <!-- Table for the current architecture -->
+            <div id="current-architecture">
+                <h3>Current Architecture</h3>
+                <table id="layer-table">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Layer Type</th>
+                            <th>Parameters (JSON)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically added here -->
+                    </tbody>
+                </table>
+                <button id="add-layer-btn">Add New Layer</button>
+            </div>
+        </div>
         <button id="train-btn">Train Model</button>
     </div>
     
     <div id="status"></div>
     
+    <!-- Pass pre-configured layers and default template as JSON -->
+    <script>
+        var preConfiguredLayers = {{ pre_configured_layers | tojson }};
+        var defaultTemplate = {{ default_template | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
