@@ -1,0 +1,30 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Build-a-CNN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Build-a-CNN</h1>
+    <div id="cnn-config">
+        <h2>CNN Template Configuration</h2>
+        <!-- Text area for the CNN configuration in JSON format -->
+        <textarea id="config-input" rows="10" cols="50">
+[
+    {"type": "Conv2D", "params": {"filters": 32, "kernel_size": [3, 3], "activation": "relu"}},
+    {"type": "MaxPooling2D", "params": {"pool_size": [2, 2]}},
+    {"type": "Flatten", "params": {}},
+    {"type": "Dense", "params": {"units": 10, "activation": "softmax"}}
+]
+        </textarea>
+        <br>
+        <button id="train-btn">Train Model</button>
+    </div>
+    
+    <div id="status"></div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
