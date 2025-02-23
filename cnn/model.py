@@ -62,3 +62,10 @@ def get_default_template():
         {"type": "Dense", "params": {"units": 128, "activation": "relu"}},
         {"type": "Dense", "params": {"units": 10, "activation": "softmax"}}
     ]
+
+def save_model(model, model_name):
+    """
+    Saves the model to the 'models' directory.
+    """
+    model.save(f'models/{model_name}.keras')
+    model.summary()

@@ -1,6 +1,8 @@
 # app/routes.py
 from flask import Blueprint, render_template, request, jsonify, current_app
 from cnn.train import train_model
+from cnn.compile import compile_model
+from cnn.model import build_custom_model, save_model
 
 main = Blueprint('main', __name__)
 
@@ -14,10 +16,22 @@ def index():
 
 @main.route('/train', methods=['POST'])
 def train():
+    compile_config = request.json.get('compile_config')
+    train_config = request.json.get('train_config')
+    try:
+        model, history = train_model(compile_config, train_config)
+        return jsonify({'status': 'success', 'message': 'Training completed.'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
+@main.route('/save', methods=['POST'])
+def save():
     data = request.get_json()
     layer_config = data.get('layer_config') if data and 'layer_config' in data else None
     try:
-        model, history = train_model(layer_config=layer_config)
-        return jsonify({'status': 'success', 'message': 'Training completed.'})
+        print('layer_config: ', layer_config)
+        model = build_custom_model(layer_config)
+        save_model(model, 'custom_cnn_model')
+        return jsonify({'status': 'success', 'message': 'Model saved successfully.'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})

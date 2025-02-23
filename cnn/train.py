@@ -9,35 +9,62 @@ def dummy_data(num_samples=100, input_shape=(128, 128, 3), num_classes=10):
     y = np.random.randint(0, num_classes, num_samples)
     return X, y
 
-def train_model(layer_config=None, epochs=5):
+def get_default_train_config():
+    return {
+        'epochs': 5,
+        'batch_size': 32
+    }
+
+def get_default_compile_config():
+    return {
+        'optimizer': 'adam',
+        'loss': 'sparse_categorical_crossentropy',
+        'metrics': ['accuracy']
+    }
+
+def train_model(compile_config, train_config):
     """
-    Builds, compiles, and trains the CNN model using dummy data.
+    Trains the existing CNN model using dummy data.
     
     Parameters:
-      layer_config (list): Custom CNN configuration; if None, the default template is used.
-      epochs (int): Number of training epochs.
-    
+      compile_config (dict): The configuration for the model compilation.
+      train_config (dict): The configuration for the model training.
+
     Returns:
       The trained model and training history.
-    """
-    if layer_config is None:
-        layer_config = get_default_template()
-    
-    # Build the model from the provided configuration.
-    model = build_custom_model(layer_config)
-    model.compile(optimizer='adam', 
-                  loss='sparse_categorical_crossentropy', 
-                  metrics=['accuracy'])
-    
-    # Generate dummy training data.
+    """    
+
     X, y = dummy_data()
+
+    model = tf.keras.models.load_model('models/custom_cnn_model.keras')
+
+    default_train_config = get_default_train_config()
+
+    if compile_config['optimizer'] is None:
+        compile_config['optimizer'] = get_default_compile_config()['optimizer']
+    if compile_config['loss'] is None:
+        compile_config['loss'] = get_default_compile_config()['loss']
+    if compile_config['metrics'] is None:
+        compile_config['metrics'] = get_default_compile_config()['metrics']
+
+    if train_config['epochs'] is None:
+        train_config['epochs'] = default_train_config['epochs']
+    if train_config['batchSize'] is None:
+        train_config['batchSize'] = default_train_config['batchSize']
+
+    print('compile_config: ', compile_config)
+    print('train_config: ', train_config)
+
+    model.compile(optimizer=compile_config['optimizer'],
+                  loss=compile_config['loss'],
+                  metrics=[compile_config['metrics']])
+
+    history = model.fit(X, y,
+                        epochs=int(train_config['epochs']),
+                        batch_size=int(train_config['batchSize']),
+                        verbose=1)
     
-    # Train the model.
-    history = model.fit(X, y, epochs=epochs, verbose=1)
-    
-    # Save the trained model.
-    model.save('runs/custom_cnn_model.h5')
-    print("Model saved as runs/custom_cnn_model.h5")
+    model.save_weights('weights/custom_cnn_model.weights.h5')
     
     return model, history
 

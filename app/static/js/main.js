@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const layerOptionsList = document.getElementById('layer-options');
     const layerTableBody = document.querySelector('#layer-table tbody');
     const addLayerBtn = document.getElementById('add-layer-btn');
+    const saveModelBtn = document.getElementById('save-model-btn');
+    const compileBtn = document.getElementById('compile-btn');
     const trainBtn = document.getElementById('train-btn');
     const statusDiv = document.getElementById('status');
 
@@ -129,8 +131,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle "Train Model" button click
-    trainBtn.addEventListener('click', function() {
+    /* Model actions */
+
+    function getLayerConfig() {
         // Gather layer configuration from the table
         const config = [];
         const rows = layerTableBody.querySelectorAll('tr');
@@ -145,12 +148,58 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             config.push({ type: type, params: params });
         });
+        return config;
+    }
+
+    function getCompileConfig() {
+        const optimizer = document.getElementById('optimizer-select').value;
+        const loss = document.getElementById('loss-select').value;
+        const metrics = document.getElementById('metrics-select').value;
+        return { optimizer, loss, metrics };
+    }
+
+    function getTrainConfig() {
+        const epochs = document.getElementById('epochs-input').value;
+        const batchSize = document.getElementById('batch-size-input').value;
+        return { epochs, batchSize };
+    }
+
+    // Handle "Save Model" button click
+    saveModelBtn.addEventListener('click', function() {
+        const config = getLayerConfig();
+
+        // Send the configuration to the backend for saving
+        fetch('/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ layer_config: config })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                statusDiv.textContent = "Model saved successfully!";
+                statusDiv.style.color = "green";
+            } else {
+                statusDiv.textContent = "Error: " + data.message;
+                statusDiv.style.color = "red";
+            }
+        })
+        .catch(error => {
+            statusDiv.textContent = "Error: " + error;
+            statusDiv.style.color = "red";
+        });
+    });
+
+    // Handle "Train Model" button click
+    trainBtn.addEventListener('click', function() {
+        const compileConfig = getCompileConfig();
+        const trainConfig = getTrainConfig();
 
         // Send the configuration to the backend for training
         fetch('/train', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ layer_config: config })
+            body: JSON.stringify({ compile_config: compileConfig, train_config: trainConfig })
         })
         .then(response => response.json())
         .then(data => {

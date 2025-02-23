@@ -35,7 +35,81 @@
                 <button id="add-layer-btn">Add New Layer</button>
             </div>
         </div>
-        <button id="train-btn">Train Model</button>
+        <h2>Model Actions</h2>
+        <div id="model-actions">
+            <button id="save-model-btn">Save Model</button>
+            <div id="train-panel">
+                <h3>Compilation Parameters</h3>
+                <table id="compile-table">
+                    <tbody>
+                        <tr>
+                            <td>Optimizer</td>
+                            <td>
+                                <select id="optimizer-select">
+                                    <option value="None">None</option>
+                                    <option value="adam">Adam</option>
+                                    <option value="sgd">SGD</option>
+                                    <option value="rmsprop">RMSprop</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Loss</td>
+                            <td>
+                                <select id="loss-select">
+                                    <option value="None">None</option>
+                                    <option value="sparse_categorical_crossentropy">Sparse Categorical Crossentropy</option>
+                                    <option value="categorical_crossentropy">Categorical Crossentropy</option>
+                                    <option value="binary_crossentropy">Binary Crossentropy</option>
+                                    <option value="mean_squared_error">Mean Squared Error</option>
+                                    <option value="mean_absolute_error">Mean Absolute Error</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td>Metrics</td>
+                            <td>
+                                <select id="metrics-select">
+                                    <option value="None">None</option>
+                                    <option value="accuracy">Accuracy</option>
+                                    <option value="precision">Precision</option>
+                                    <option value="recall">Recall</option>
+                                    <option value="f1_score">F1 Score</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Training Parameters</h3>
+                <table id="train-table">
+                    <tbody>
+                        <tr>
+                            <td>Epochs</td>
+                            <td>
+                                <input type="number"
+                                 id="epochs-input"
+                                 class="integer-input"
+                                 value="10"
+                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Batch Size</td>
+                            <td>
+                                <input type="number"
+                                 id="batch-size-input"
+                                 class="integer-input"
+                                 value="32"
+                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="train-btn">Train Model</button>
+            </div>
+        </div>
     </div>
     
     <div id="status"></div>
