@@ -67,5 +67,5 @@ def save_model(model, model_name):
     """
     Saves the model to the 'models' directory.
     """
-    model.save(f'models/{model_name}.keras')
+    model.save(f'backend/models/{model_name}.keras')
     model.summary()

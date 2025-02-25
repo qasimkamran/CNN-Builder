@@ -4,10 +4,10 @@ venv/
 .venv/
 
 # Byte-compiled / cached
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
 
 # Virtual environment configuration
 pip-log.txt
@@ -24,7 +24,15 @@ config.json
 .idea/
 
 # Weights
-weights/
+backend/weights/
 
 # Models
-models/
+backend/models/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/package.json

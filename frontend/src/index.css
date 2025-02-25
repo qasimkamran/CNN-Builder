@@ -1,0 +1,12 @@
+/* src/index.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}

@@ -1,8 +1,7 @@
-# app/routes.py
+# backend/routes.py
 from flask import Blueprint, render_template, request, jsonify, current_app
-from cnn.train import train_model
-from cnn.compile import compile_model
-from cnn.model import build_custom_model, save_model
+from backend.cnn.train import train_model
+from backend.cnn.model import build_custom_model, save_model
 
 main = Blueprint('main', __name__)
 

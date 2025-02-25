@@ -1,6 +1,8 @@
 # cnn/train.py
 import tensorflow as tf
 import numpy as np
+import os
+
 from .model import build_custom_model, get_default_template
 
 def dummy_data(num_samples=100, input_shape=(128, 128, 3), num_classes=10):
@@ -12,7 +14,7 @@ def dummy_data(num_samples=100, input_shape=(128, 128, 3), num_classes=10):
 def get_default_train_config():
     return {
         'epochs': 5,
-        'batch_size': 32
+        'batchSize': 32
     }
 
 def get_default_compile_config():
@@ -36,7 +38,7 @@ def train_model(compile_config, train_config):
 
     X, y = dummy_data()
 
-    model = tf.keras.models.load_model('models/custom_cnn_model.keras')
+    model = tf.keras.models.load_model('backend/models/custom_cnn_model.keras')
 
     default_train_config = get_default_train_config()
 
@@ -64,7 +66,7 @@ def train_model(compile_config, train_config):
                         batch_size=int(train_config['batchSize']),
                         verbose=1)
     
-    model.save_weights('weights/custom_cnn_model.weights.h5')
+    model.save_weights('backend/weights/custom_cnn_model.weights.h5')
     
     return model, history
 
