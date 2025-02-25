@@ -1,5 +1,6 @@
 // src/components/ModelActions.js
 import React, { useState } from 'react';
+import MinimalistInput from './MinimalistInput';
 
 const ModelActions = ({ onTrain, onSave }) => {
   const [optimizer, setOptimizer] = useState('adam');
@@ -60,20 +61,20 @@ const ModelActions = ({ onTrain, onSave }) => {
             <tr>
               <td>Epochs</td>
               <td>
-                <input 
-                  type="number" 
-                  value={epochs} 
-                  onChange={(e) => setEpochs(Number(e.target.value))} 
+                <MinimalistInput
+                  label=""
+                  value={epochs}
+                  onChange={(value) => setEpochs(Number(value))}
                 />
               </td>
             </tr>
             <tr>
               <td>Batch Size</td>
               <td>
-                <input 
-                  type="number" 
-                  value={batchSize} 
-                  onChange={(e) => setBatchSize(Number(e.target.value))} 
+                <MinimalistInput
+                  label=""
+                  value={batchSize}
+                  onChange={(value) => setBatchSize(Number(value))}
                 />
               </td>
             </tr>

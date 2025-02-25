@@ -1,11 +1,12 @@
 // src/components/ArchitectureTable.js
 import React from 'react';
+import MinimalistInput from './MinimalistInput';
 
 const ArchitectureTable = ({ architecture, updateLayerParam, removeLayer, moveLayerUp, moveLayerDown }) => {
   return (
-    <div>
+    <div className="architecture-table-container">
       <h3>Current Architecture</h3>
-      <table>
+      <table className="architecture-table">
         <thead>
           <tr>
             <th>Order</th>
@@ -19,15 +20,15 @@ const ArchitectureTable = ({ architecture, updateLayerParam, removeLayer, moveLa
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{layer.type}</td>
-              <td>
+              <td className="architecture-table-param">
                 {Object.keys(layer.params).length > 0 ? (
                   Object.keys(layer.params).map((key, i) => (
                     <div key={i}>
                       <label>{key}: </label>
-                      <input 
-                        type="text" 
-                        value={layer.params[key]} 
-                        onChange={(e) => updateLayerParam(index, key, e.target.value)} 
+                      <MinimalistInput
+                        label=""
+                        value={layer.params[key]}
+                        onChange={(value) => updateLayerParam(index, key, value)}
                       />
                     </div>
                   ))

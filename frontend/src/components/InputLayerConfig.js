@@ -1,5 +1,6 @@
 // src/components/InputLayerConfig.js
 import React from 'react';
+import MinimalistInput from './MinimalistInput';
 
 const InputLayerConfig = ({ inputLayer, setInputLayer }) => {
   const handleChange = (e) => {
@@ -8,23 +9,32 @@ const InputLayerConfig = ({ inputLayer, setInputLayer }) => {
   };
 
   return (
-    <div className="input-layer-config">
+    <div className="input-layer-config-container">
       <h3>Input Layer Configuration</h3>
-      <label>
-        Input Height: 
-        <input type="text" name="height" value={inputLayer.height} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Input Width: 
-        <input type="text" name="width" value={inputLayer.width} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Input Channels: 
-        <input type="text" name="channels" value={inputLayer.channels} onChange={handleChange} />
-      </label>
-    </div>
+      <div className="input-layer-config">
+        <label>
+          <MinimalistInput
+            label="Input Height"
+            value={inputLayer.height}
+            onChange={(value) => setInputLayer({ ...inputLayer, height: value })}
+          />
+        </label>
+        <label>
+          <MinimalistInput
+            label="Input Width"
+            value={inputLayer.width}
+            onChange={(value) => setInputLayer({ ...inputLayer, width: value })}
+          />
+        </label>
+        <label>
+          <MinimalistInput
+            label="Input Channels"
+            value={inputLayer.channels}
+            onChange={(value) => setInputLayer({ ...inputLayer, channels: value })}
+          />
+        </label>
+      </div>
+      </div>
   );
 };
 

@@ -1,6 +1,7 @@
 /* Common styles */
 .container {
   padding: 20px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -12,7 +13,7 @@ h2, h3 {
 
 /* Table styles */
 table {
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
   margin-bottom: 20px;
   background-color: #fff;
@@ -21,13 +22,31 @@ table {
 
 td, th {
   padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #e1e1e1;
+  text-align: center;
+  border: 1px solid #e1e1e1;
 }
 
 th {
   background-color: #f8f9fa;
   font-weight: 600;
+  text-align: center;
+}
+
+.architecture-table-param {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    padding: 30px;
+  }
+
+.architecture-table-param label {
+    color: #2c3e50;
+  }
+
+.architecture-table-param input {
+  border-collapse: collapse;
 }
 
 /* Form controls */
@@ -88,11 +107,18 @@ li:hover {
   transform: translateX(5px);
 }
 
-/* Input Layer Config Component */
+.input-layer-config {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .input-layer-config label {
-  display: block;
   margin-bottom: 15px;
   color: #2c3e50;
+  padding: 10px 15px;
 }
 
 /* Model Actions Component */
@@ -123,4 +149,4 @@ li:hover {
     width: 100%;
     margin-bottom: 10px;
   }
-} 
+}
