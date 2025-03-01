@@ -33,6 +33,4 @@ backend/models/
 frontend/node_modules/
 frontend/dist/
 frontend/build/
-frontend/package-lock.json
 frontend/yarn.lock
-frontend/package.json
