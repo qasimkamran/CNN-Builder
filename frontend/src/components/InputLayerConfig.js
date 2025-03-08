@@ -1,6 +1,7 @@
 // src/components/InputLayerConfig.js
 import React from 'react';
 import MinimalistInput from './MinimalistInput';
+import './InputLayerConfig.css';
 
 const InputLayerConfig = ({ inputLayer, setInputLayer }) => {
   const handleChange = (e) => {
@@ -9,7 +10,7 @@ const InputLayerConfig = ({ inputLayer, setInputLayer }) => {
   };
 
   return (
-    <div className="input-layer-config-container">
+    <div className="card">
       <h3>Input Layer Configuration</h3>
       <div className="input-layer-config">
         <label>

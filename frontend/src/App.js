@@ -89,7 +89,7 @@ function App() {
     <div className="App">
       <h1>Build-a-CNN</h1>
       <InputLayerConfig inputLayer={inputLayer} setInputLayer={setInputLayer} />
-      <div className="architecture-table-container" style={{ display: 'flex', gap: '20px' }}>
+      <div className="architecture-table-container">
         <AvailableLayers layers={preConfiguredLayers} addLayer={addLayer} />
         <ArchitectureTable 
           architecture={architecture} 
@@ -104,4 +104,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

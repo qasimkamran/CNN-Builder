@@ -1,10 +1,11 @@
 // src/components/ArchitectureTable.js
 import React from 'react';
 import MinimalistInput from './MinimalistInput';
+import './ArchitectureTable.css';
 
 const ArchitectureTable = ({ architecture, updateLayerParam, removeLayer, moveLayerUp, moveLayerDown }) => {
   return (
-    <div className="architecture-table-container">
+    <div className="card">
       <h3>Current Architecture</h3>
       <table className="architecture-table">
         <thead>

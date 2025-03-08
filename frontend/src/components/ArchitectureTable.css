@@ -1,0 +1,17 @@
+.architecture-table-param {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    padding: 30px;
+  }
+
+.architecture-table-param label {
+    color: #2c3e50;
+  }
+
+.architecture-table-param input {
+  border-collapse: collapse;
+}
+

@@ -32,21 +32,12 @@ th {
   text-align: center;
 }
 
-.architecture-table-param {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 50px;
-    justify-content: center;
-    padding: 30px;
-  }
+td {
+ white-space: nowrap;
+}
 
-.architecture-table-param label {
-    color: #2c3e50;
-  }
-
-.architecture-table-param input {
-  border-collapse: collapse;
+td button {
+  display: inline-block;
 }
 
 /* Form controls */
@@ -107,34 +98,6 @@ li:hover {
   transform: translateX(5px);
 }
 
-.input-layer-config {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.input-layer-config label {
-  margin-bottom: 15px;
-  color: #2c3e50;
-  padding: 10px 15px;
-}
-
-/* Model Actions Component */
-.model-actions {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-.action-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   input, select {
@@ -149,4 +112,15 @@ li:hover {
     width: 100%;
     margin-bottom: 10px;
   }
+}
+
+.card {
+  width: auto;
+  height: min-content;
+  background: darkslategray;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 30px 30px 30px 0;
+  flex: 1 1 calc(33.333% - 32px); 
 }

@@ -11,7 +11,6 @@ const MinimalistInput = ({
   const [value, setValue] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
   
-  // TensorFlow orange
   const tfOrange = '#FF6F00';
 
   const handleChange = (newValue) => {

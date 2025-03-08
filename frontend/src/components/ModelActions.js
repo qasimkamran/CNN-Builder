@@ -1,6 +1,7 @@
 // src/components/ModelActions.js
 import React, { useState } from 'react';
 import MinimalistInput from './MinimalistInput';
+import './ModelActions.css';
 
 const ModelActions = ({ onTrain, onSave }) => {
   const [optimizer, setOptimizer] = useState('adam');
@@ -14,7 +15,7 @@ const ModelActions = ({ onTrain, onSave }) => {
   };
 
   return (
-    <div className="model-actions">
+    <div className="card">
       <h2>Model Actions</h2>
       <div>
         <h3>Compilation Parameters</h3>
