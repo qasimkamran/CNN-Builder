@@ -1,9 +1,17 @@
 # cnn/train.py
+import os
 import tensorflow as tf
 import numpy as np
-import os
 
-from .model import build_custom_model, get_default_template
+from backend.cnn.model import build_custom_model, get_default_template
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+MODEL_DIR = os.path.join(BASE_DIR, 'models')
+WEIGHTS_DIR = os.path.join(BASE_DIR, 'weights')
+
+os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(WEIGHTS_DIR, exist_ok=True)
 
 def dummy_data(num_samples=100, input_shape=(128, 128, 3), num_classes=10):
     """Generate dummy data for training."""
@@ -38,7 +46,7 @@ def train_model(compile_config, train_config):
 
     X, y = dummy_data()
 
-    model = tf.keras.models.load_model('backend/models/custom_cnn_model.keras')
+    model = tf.keras.models.load_model(os.path.join(MODEL_DIR, 'custom_cnn_model.keras'))
 
     default_train_config = get_default_train_config()
 
@@ -57,16 +65,18 @@ def train_model(compile_config, train_config):
     print('compile_config: ', compile_config)
     print('train_config: ', train_config)
 
-    model.compile(optimizer=compile_config['optimizer'],
-                  loss=compile_config['loss'],
-                  metrics=[compile_config['metrics']])
+    model.compile(
+        optimizer=compile_config['optimizer'],
+        loss=compile_config['loss'],
+        metrics=compile_config['metrics']
+    )
 
     history = model.fit(X, y,
                         epochs=int(train_config['epochs']),
                         batch_size=int(train_config['batchSize']),
                         verbose=1)
     
-    model.save_weights('backend/weights/custom_cnn_model.weights.h5')
+    model.save_weights(os.path.join(WEIGHTS_DIR, 'custom_cnn_model.weights.h5'))
     
     return model, history
 
