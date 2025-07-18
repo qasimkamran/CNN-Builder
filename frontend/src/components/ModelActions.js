@@ -1,4 +1,3 @@
-// src/components/ModelActions.js
 import React, { useState } from 'react';
 import MinimalistInput from './MinimalistInput';
 import './ModelActions.css';
@@ -91,3 +90,4 @@ const ModelActions = ({ onTrain, onSave }) => {
 };
 
 export default ModelActions;
+

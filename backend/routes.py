@@ -1,9 +1,11 @@
-# backend/routes.py
-from flask import Blueprint, render_template, request, jsonify, current_app
+from flask import \
+    Blueprint, render_template, request, jsonify, current_app, abort
 from backend.cnn.train import train_model
 from backend.cnn.model import build_custom_model, save_model
 
+
 main = Blueprint('main', __name__)
+
 
 @main.route('/')
 def index():
@@ -13,15 +15,20 @@ def index():
                            pre_configured_layers=pre_configured_layers, 
                            default_template=default_template)
 
+
 @main.route('/train', methods=['POST'])
 def train():
-    compile_config = request.json.get('compile_config')
-    train_config = request.json.get('train_config')
+    data = request.get_json()
+    if data is None:
+        abort(400, "Missing JSON payload")
+    compile_config = data.get('compile_config')
+    train_config = data.get('train_config')
     try:
         model, history = train_model(compile_config, train_config)
         return jsonify({'status': 'success', 'message': 'Training completed.'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
+
 
 @main.route('/save', methods=['POST'])
 def save():
@@ -34,3 +41,4 @@ def save():
         return jsonify({'status': 'success', 'message': 'Model saved successfully.'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
+

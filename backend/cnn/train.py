@@ -1,9 +1,9 @@
-# cnn/train.py
 import os
 import tensorflow as tf
 import numpy as np
 
 from backend.cnn.model import build_custom_model, get_default_template
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -13,11 +13,13 @@ WEIGHTS_DIR = os.path.join(BASE_DIR, 'weights')
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(WEIGHTS_DIR, exist_ok=True)
 
+
 def dummy_data(num_samples=100, input_shape=(128, 128, 3), num_classes=10):
     """Generate dummy data for training."""
     X = np.random.random((num_samples, *input_shape))
     y = np.random.randint(0, num_classes, num_samples)
     return X, y
+
 
 def get_default_train_config():
     return {
@@ -25,12 +27,14 @@ def get_default_train_config():
         'batchSize': 32
     }
 
+
 def get_default_compile_config():
     return {
         'optimizer': 'adam',
         'loss': 'sparse_categorical_crossentropy',
         'metrics': ['accuracy']
     }
+
 
 def train_model(compile_config, train_config):
     """
@@ -80,5 +84,7 @@ def train_model(compile_config, train_config):
     
     return model, history
 
+
 if __name__ == "__main__":
     train_model()
+

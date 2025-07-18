@@ -1,5 +1,3 @@
-# backend/config.py
-
 class Config:
     DEBUG = True
     # Pre-configured layer templates that the UI can use for adding new layers.
@@ -16,3 +14,4 @@ class Config:
         {"type": "Flatten", "params": {}},
         {"type": "Dense", "params": {"units": 10, "activation": "softmax"}}
     ]
+

@@ -1,4 +1,3 @@
-// src/components/AvailableLayers.js
 import React from 'react';
 import './AvailableLayers.css';
 
@@ -20,3 +19,4 @@ const AvailableLayers = ({ layers, addLayer }) => {
 };
 
 export default AvailableLayers;
+

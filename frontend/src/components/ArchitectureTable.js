@@ -1,4 +1,3 @@
-// src/components/ArchitectureTable.js
 import React from 'react';
 import MinimalistInput from './MinimalistInput';
 import './ArchitectureTable.css';
@@ -51,3 +50,4 @@ const ArchitectureTable = ({ architecture, updateLayerParam, removeLayer, moveLa
 };
 
 export default ArchitectureTable;
+

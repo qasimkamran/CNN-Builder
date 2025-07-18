@@ -52,3 +52,4 @@ const MinimalistInput = ({
 };
 
 export default MinimalistInput;
+

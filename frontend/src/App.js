@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import InputLayerConfig from './components/InputLayerConfig';
 import AvailableLayers from './components/AvailableLayers';
@@ -105,3 +104,4 @@ function App() {
 }
 
 export default App
+

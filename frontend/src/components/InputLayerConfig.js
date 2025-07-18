@@ -1,4 +1,3 @@
-// src/components/InputLayerConfig.js
 import React from 'react';
 import MinimalistInput from './MinimalistInput';
 import './InputLayerConfig.css';
@@ -40,3 +39,4 @@ const InputLayerConfig = ({ inputLayer, setInputLayer }) => {
 };
 
 export default InputLayerConfig;
+

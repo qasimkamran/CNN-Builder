@@ -1,4 +1,3 @@
-# backend/run.py
 from backend import create_app
 from flask_cors import CORS
 
