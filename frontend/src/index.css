@@ -1,7 +1,8 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f9f9f9;
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 .App {
@@ -12,13 +13,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f8f9fa;
+  background-color: #1e1e1e;
 }
 
 .architecture-table-container {  
   display: flex;
   width: auto;
-  background: orange;
+  background-color: #FF6F00;
+  color: #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;

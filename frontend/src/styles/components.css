@@ -7,7 +7,7 @@
 }
 
 h2, h3 {
-  color: #2c3e50;
+  color: #e0e0e0;
   margin-bottom: 20px;
 }
 
@@ -16,18 +16,20 @@ table {
   width: 70%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  background-color: #fff;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 td, th {
   padding: 12px 15px;
   text-align: center;
-  border: 1px solid #e1e1e1;
+  border: 1px solid #444444;
+  color: #e0e0e0;
 }
 
 th {
-  background-color: #f8f9fa;
+  background-color: #2a2a2a;
   font-weight: 600;
   text-align: center;
 }
@@ -44,10 +46,12 @@ td button {
 input, select {
   width: 200px;
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #555555;
   border-radius: 4px;
   font-size: 14px;
   margin: 4px 0;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
 }
 
 input:focus, select:focus {
@@ -74,7 +78,8 @@ button:hover {
 }
 
 button:disabled {
-  background-color: #bdc3c7;
+  background-color: #555555;
+  color: #aaaaaa;
   cursor: not-allowed;
 }
 
@@ -86,15 +91,16 @@ ul {
 
 li {
   padding: 12px 15px;
-  border: 1px solid #e1e1e1;
+  border: 1px solid #444444;
   margin-bottom: 8px;
   border-radius: 4px;
-  background-color: #f8f9fa;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
   transition: all 0.2s;
 }
 
 li:hover {
-  background-color: #e9ecef;
+  background-color: #3a3a3a;
   transform: translateX(5px);
 }
 
@@ -117,7 +123,8 @@ li:hover {
 .card {
   width: auto;
   height: min-content;
-  background: darkslategray;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
