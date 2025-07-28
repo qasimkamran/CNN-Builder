@@ -1,22 +1,27 @@
 from flask import \
     Blueprint, render_template, request, jsonify, current_app, abort
+from flask_cors import CORS, cross_origin
 from backend.cnn.train import train_model
 from backend.cnn.model import build_custom_model, save_model
 
 
 main = Blueprint('main', __name__)
 
+CORS(main)
 
 @main.route('/')
 def index():
-    pre_configured_layers = current_app.config.get("PRE_CONFIGURED_LAYERS")
-    default_template = current_app.config.get("DEFAULT_CNN_TEMPLATE")
-    return render_template('index.html', 
-                           pre_configured_layers=pre_configured_layers, 
-                           default_template=default_template)
+    log_file = current_app.config.get('LOG_FILE', '../logs/temp.log')
+    try:
+        with open(log_file) as f:
+            logs = f.read()
+    except Exception:
+        logs = 'Log file not found or unreadable.'
+    return render_template('index.html', logs=logs)
 
 
 @main.route('/train', methods=['POST'])
+@cross_origin()
 def train():
     data = request.get_json()
     if data is None:
@@ -24,21 +29,27 @@ def train():
     compile_config = data.get('compile_config')
     train_config = data.get('train_config')
     try:
+        current_app.logger.info("Training with compile_config: %s, train_config: %s", compile_config, train_config)
         model, history = train_model(compile_config, train_config)
+        current_app.logger.info("Training completed successfully.")
         return jsonify({'status': 'success', 'message': 'Training completed.'})
     except Exception as e:
+        current_app.logger.error("Training error: %s", str(e))
         return jsonify({'status': 'error', 'message': str(e)})
 
 
 @main.route('/save', methods=['POST'])
+@cross_origin()
 def save():
     data = request.get_json()
     layer_config = data.get('layer_config') if data and 'layer_config' in data else None
     try:
-        print('layer_config: ', layer_config)
+        current_app.logger.info("Saving model with layer_config: %s", layer_config)
         model = build_custom_model(layer_config)
         save_model(model, 'custom_cnn_model')
+        current_app.logger.info("Model saved successfully.")
         return jsonify({'status': 'success', 'message': 'Model saved successfully.'})
     except Exception as e:
+        current_app.logger.error("Model save error: %s", str(e))
         return jsonify({'status': 'error', 'message': str(e)})
 
