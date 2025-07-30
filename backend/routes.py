@@ -1,13 +1,11 @@
 from flask import \
     Blueprint, render_template, request, jsonify, current_app, abort
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin
 from backend.cnn.train import train_model
 from backend.cnn.model import build_custom_model, save_model
 
 
 main = Blueprint('main', __name__)
-
-CORS(main)
 
 @main.route('/')
 def index():
@@ -21,7 +19,6 @@ def index():
 
 
 @main.route('/train', methods=['POST'])
-@cross_origin()
 def train():
     data = request.get_json()
     if data is None:
@@ -38,8 +35,7 @@ def train():
         return jsonify({'status': 'error', 'message': str(e)})
 
 
-@main.route('/save', methods=['POST'])
-@cross_origin()
+@main.route('/save', methods=['POST', 'OPTIONS'])
 def save():
     data = request.get_json()
     layer_config = data.get('layer_config') if data and 'layer_config' in data else None

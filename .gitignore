@@ -8,6 +8,7 @@ backend/__pycache__/
 backend/*.pyc
 backend/*.pyo
 backend/*.pyd
+backend/logs
 __pycache__/
 *.pyc
 *.pyo

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start-backend": "python3 ../run.py",
+    "start-backend": "cd .. && python3 run.py",
     "start-frontend": "react-scripts start",
     "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
     "build": "react-scripts build",

@@ -1,2 +1,0 @@
-2025-07-28 22:59:16,155 INFO: Training with compile_config: {}, train_config: {}
-2025-07-28 22:59:16,245 ERROR: Training error: File not found: filepath=/home/ubuntu/Projects/CNN-Builder/backend/models/custom_cnn_model.keras. Please ensure the file is an accessible `.keras` zip file.
