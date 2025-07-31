@@ -10,11 +10,7 @@ from .routes import main
 def create_app():
     app = Flask(__name__)
 
-    CORS(app,
-         resources={r"/*": {"origins": "http://localhost:3000"}},
-         methods=["GET", "POST", "OPTIONS"],
-         supports_credentials=True
-    )
+    CORS(app)
 
     app.config.from_object(Config)
 
