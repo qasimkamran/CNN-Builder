@@ -1,8 +1,8 @@
 from flask import \
     Blueprint, render_template, request, jsonify, current_app, abort
-from flask_cors import cross_origin
 from backend.cnn.train import train_model
 from backend.cnn.model import build_custom_model, save_model
+import io
 
 
 main = Blueprint('main', __name__)
@@ -42,9 +42,16 @@ def save():
     try:
         current_app.logger.info("Saving model with layer_config: %s", layer_config)
         model = build_custom_model(layer_config)
+        buf = io.StringIO()
+        model.summary(print_fn=lambda line: buf.write(line + '\n'))
+        summary_str = buf.getvalue()
         save_model(model, 'custom_cnn_model')
         current_app.logger.info("Model saved successfully.")
-        return jsonify({'status': 'success', 'message': 'Model saved successfully.'})
+        return jsonify({
+            'status': 'success', 
+            'message': 'Model saved successfully.', 
+            'summary': summary_str
+        })
     except Exception as e:
         current_app.logger.error("Model save error: %s", str(e))
         return jsonify({'status': 'error', 'message': str(e)})

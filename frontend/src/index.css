@@ -27,3 +27,9 @@ body {
   flex: 1 1 calc(33.333% - 32px); 
 }
 
+.actions-summary-container {
+  display: flex;
+  width: auto;
+  margin-top: 20px;
+}
+

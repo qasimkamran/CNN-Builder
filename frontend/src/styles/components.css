@@ -6,6 +6,18 @@
   margin: 0 auto;
 }
 
+/* Layout for actions and summary side by side */
+.actions-summary-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.actions-summary-container .card {
+  /* Prevent cards from flex-growing or shrinking, keep intrinsic width */
+  flex: none;
+}
+
 h2, h3 {
   color: #e0e0e0;
   margin-bottom: 20px;

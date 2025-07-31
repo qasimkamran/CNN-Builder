@@ -6,6 +6,7 @@ import ModelActions from './components/ModelActions';
 import { preConfiguredLayers, defaultTemplate } from './data';
 import { sendTrainRequest, sendSaveRequest } from './api';
 import './styles/components.css';
+import ModelSummary from 'components/ModelSummary';
 
 function App() {
   const [inputLayer, setInputLayer] = useState({
@@ -14,6 +15,7 @@ function App() {
     channels: 3
   });
   const [architecture, setArchitecture] = useState(defaultTemplate);
+  const [modelSummary, setModelSummary] = useState(null);
 
   const addLayer = (layer) => {
     setArchitecture(prev => [...prev, layer]);
@@ -76,11 +78,15 @@ function App() {
   };
 
   const handleSave = () => {
-    const payload = {
-      layer_config: architecture
-    };
+    const payload = { layer_config: architecture };
     sendSaveRequest(payload)
-      .then(data => console.log(data))
+      .then(response => {
+        console.log(response.data);
+        // Populate model summary from backend response
+        if (response.data.summary) {
+          setModelSummary(response.data.summary);
+        }
+      })
       .catch(err => console.error(err));
   };
 
@@ -98,7 +104,10 @@ function App() {
           moveLayerDown={moveLayerDown}
         />
       </div>
-      <ModelActions onTrain={handleTrain} onSave={handleSave} />
+      <div className="actions-summary-container">
+        <ModelActions onTrain={handleTrain} onSave={handleSave} />
+        {modelSummary && <ModelSummary summary={modelSummary} />}
+      </div>
     </div>
   );
 }
