@@ -7,6 +7,8 @@ import { preConfiguredLayers, defaultTemplate } from './data';
 import { sendTrainRequest, sendSaveRequest } from './api';
 import './styles/components.css';
 import ModelSummary from 'components/ModelSummary';
+import LogMessage from 'components/LogMessage';
+// Icons for log message popup
 
 function App() {
   const [inputLayer, setInputLayer] = useState({
@@ -16,6 +18,9 @@ function App() {
   });
   const [architecture, setArchitecture] = useState(defaultTemplate);
   const [modelSummary, setModelSummary] = useState(null);
+  // State for log message popup
+  const [message, setMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const addLayer = (layer) => {
     setArchitecture(prev => [...prev, layer]);
@@ -73,21 +78,34 @@ function App() {
     };
 
     sendTrainRequest(payload)
-      .then(data => console.log(data))
-      .catch(err => console.error(err));
+      .then(response => {
+        const { status, message: respMsg } = response.data;
+        setMessage(respMsg);
+        setIsError(status === 'error');
+      })
+      .catch(err => {
+        const errMsg = err.response?.data?.message || err.message;
+        setMessage(errMsg);
+        setIsError(true);
+      });
   };
 
   const handleSave = () => {
     const payload = { layer_config: architecture };
     sendSaveRequest(payload)
       .then(response => {
-        console.log(response.data);
-        // Populate model summary from backend response
-        if (response.data.summary) {
-          setModelSummary(response.data.summary);
+        const { status, message: respMsg, summary } = response.data;
+        setMessage(respMsg);
+        setIsError(status === 'error');
+        if (status === 'success' && summary) {
+          setModelSummary(summary);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        const errMsg = err.response?.data?.message || err.message;
+        setMessage(errMsg);
+        setIsError(true);
+      });
   };
 
   return (
@@ -108,6 +126,12 @@ function App() {
         <ModelActions onTrain={handleTrain} onSave={handleSave} />
         {modelSummary && <ModelSummary summary={modelSummary} />}
       </div>
+      {message && (
+        <LogMessage
+          message={message}
+          isError={isError}
+        />
+      )}
     </div>
   );
 }

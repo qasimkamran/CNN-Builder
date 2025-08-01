@@ -1,0 +1,28 @@
+/* Log message banner below actions */
+.log-message {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #fff;
+}
+
+.log-message.success {
+  background-color: #28a745;
+}
+
+.log-message.error {
+  background-color: #f44336;
+}
+
+/* Optional: style for the fallback unicode if image fails */
+.fallback-icon {
+  font-size: 1em;
+  line-height: 1;
+  flex-shrink: 0;
+  color: #fff;
+}
+

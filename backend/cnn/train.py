@@ -72,7 +72,7 @@ def train_model(compile_config, train_config):
     model.compile(
         optimizer=compile_config['optimizer'],
         loss=compile_config['loss'],
-        metrics=compile_config['metrics']
+        metrics=[compile_config['metrics']]
     )
 
     history = model.fit(X, y,

@@ -28,8 +28,8 @@ def train():
     try:
         current_app.logger.info("Training with compile_config: %s, train_config: %s", compile_config, train_config)
         model, history = train_model(compile_config, train_config)
-        current_app.logger.info("Training completed successfully.")
-        return jsonify({'status': 'success', 'message': 'Training completed.'})
+        current_app.logger.info("Training completed successfully")
+        return jsonify({'status': 'success', 'message': 'Training completed successfully'})
     except Exception as e:
         current_app.logger.error("Training error: %s", str(e))
         return jsonify({'status': 'error', 'message': str(e)})
@@ -46,10 +46,10 @@ def save():
         model.summary(print_fn=lambda line: buf.write(line + '\n'))
         summary_str = buf.getvalue()
         save_model(model, 'custom_cnn_model')
-        current_app.logger.info("Model saved successfully.")
+        current_app.logger.info("Model saved successfully")
         return jsonify({
             'status': 'success', 
-            'message': 'Model saved successfully.', 
+            'message': 'Model saved successfully', 
             'summary': summary_str
         })
     except Exception as e:
