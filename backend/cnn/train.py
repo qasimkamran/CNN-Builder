@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 import numpy as np
 
-from backend.cnn.model import build_custom_model, get_default_template
+from .keras_callback import KerasCustomCallbacks
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -78,6 +78,7 @@ def train_model(compile_config, train_config):
     history = model.fit(X, y,
                         epochs=int(train_config['epochs']),
                         batch_size=int(train_config['batchSize']),
+                        callbacks=[KerasCustomCallbacks()],
                         verbose=1)
     
     model.save_weights(os.path.join(WEIGHTS_DIR, 'custom_cnn_model.weights.h5'))

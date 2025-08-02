@@ -8,7 +8,8 @@ import { sendTrainRequest, sendSaveRequest } from './api';
 import './styles/components.css';
 import ModelSummary from 'components/ModelSummary';
 import LogMessage from 'components/LogMessage';
-// Icons for log message popup
+import TrainingLog from 'components/TrainingLog';
+
 
 function App() {
   const [inputLayer, setInputLayer] = useState({
@@ -18,9 +19,10 @@ function App() {
   });
   const [architecture, setArchitecture] = useState(defaultTemplate);
   const [modelSummary, setModelSummary] = useState(null);
-  // State for log message popup
   const [message, setMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+  const [logs, setLogs] = useState([]);
+  const [isTraining, setIsTraining] = useState(false);
 
   const addLayer = (layer) => {
     setArchitecture(prev => [...prev, layer]);
@@ -77,6 +79,19 @@ function App() {
       }
     };
 
+    setIsTraining(true);
+    setLogs([]);
+    const eventSource = new EventSource('/train/logs');
+    eventSource.onmessage = (e) => {
+      setLogs(prev => [...prev, e.data]);
+      if (e.data === 'Training completed' || e.data.startsWith('Training error')) {
+        eventSource.close();
+      }
+    };
+    eventSource.onerror = (e) => {
+      console.error('SSE error:', e);
+      eventSource.close();
+    };
     sendTrainRequest(payload)
       .then(response => {
         const { status, message: respMsg } = response.data;
@@ -87,7 +102,7 @@ function App() {
         const errMsg = err.response?.data?.message || err.message;
         setMessage(errMsg);
         setIsError(true);
-      });
+      })
   };
 
   const handleSave = () => {
@@ -123,6 +138,7 @@ function App() {
         />
       </div>
       <div className="actions-summary-container">
+        {isTraining && <TrainingLog logs={logs} />}
         <ModelActions onTrain={handleTrain} onSave={handleSave} />
         {modelSummary && <ModelSummary summary={modelSummary} />}
       </div>

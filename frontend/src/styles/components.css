@@ -14,7 +14,6 @@
 }
 
 .actions-summary-container .card {
-  /* Prevent cards from flex-growing or shrinking, keep intrinsic width */
   flex: none;
 }
 
@@ -28,7 +27,7 @@ table {
   width: 70%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  background-color: #1e1e1e;
+  background-color: #020305;
   color: #e0e0e0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -36,12 +35,12 @@ table {
 td, th {
   padding: 12px 15px;
   text-align: center;
-  border: 1px solid #444444;
+  border: 1px solid #74695B;
   color: #e0e0e0;
 }
 
 th {
-  background-color: #2a2a2a;
+  background-color: #0D0F12;
   font-weight: 600;
   text-align: center;
 }
@@ -103,7 +102,7 @@ ul {
 
 li {
   padding: 12px 15px;
-  border: 1px solid #444444;
+  border: 1px solid #DBC6AF;
   margin-bottom: 8px;
   border-radius: 4px;
   background-color: #2a2a2a;
@@ -135,7 +134,7 @@ li:hover {
 .card {
   width: auto;
   height: min-content;
-  background-color: #2a2a2a;
+  background-color: #0D0F12;
   color: #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

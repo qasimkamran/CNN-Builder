@@ -1,7 +1,9 @@
 from flask import \
-    Blueprint, render_template, request, jsonify, current_app, abort
+    Blueprint, Response, render_template, request, jsonify, current_app, abort, stream_with_context, copy_current_request_context
 from backend.cnn.train import train_model
 from backend.cnn.model import build_custom_model, save_model
+from backend.cnn.keras_callback import LOG_QUEUE
+import threading
 import io
 
 
@@ -25,14 +27,32 @@ def train():
         abort(400, "Missing JSON payload")
     compile_config = data.get('compile_config')
     train_config = data.get('train_config')
-    try:
-        current_app.logger.info("Training with compile_config: %s, train_config: %s", compile_config, train_config)
-        model, history = train_model(compile_config, train_config)
-        current_app.logger.info("Training completed successfully")
-        return jsonify({'status': 'success', 'message': 'Training completed successfully'})
-    except Exception as e:
-        current_app.logger.error("Training error: %s", str(e))
-        return jsonify({'status': 'error', 'message': str(e)})
+
+    # run training in background thread so SSE can stream logs concurrently
+    @copy_current_request_context
+    def run_training():
+        try:
+            current_app.logger.info("Training with compile_config: %s, train_config: %s", compile_config, train_config)
+            model, history = train_model(compile_config, train_config)
+            current_app.logger.info("Training completed successfully")
+            LOG_QUEUE.put("Training completed")
+        except Exception as e:
+            current_app.logger.error("Training error: %s", str(e))
+            LOG_QUEUE.put(f"Training error: {e}")
+
+    threading.Thread(target=run_training, daemon=True).start()
+    return jsonify({'status': 'success', 'message': 'Training started'})
+
+
+@main.route('/train/logs')
+def stream_logs():
+    def event_stream():
+        while True:
+            message = LOG_QUEUE.get()
+            if message == "__END__":
+                break
+            yield f"data: {message}\n\n"
+    return Response(stream_with_context(event_stream()), content_type='text/event-stream')
 
 
 @main.route('/save', methods=['POST', 'OPTIONS'])
